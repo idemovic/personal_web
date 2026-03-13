@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Igor Demovic | ELIA Co-founder</title>
+  <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">Igor Demovic</div>
+    <nav>
+      <a href="#home" aria-label="Home">Home</a>
+      <a href="#about" aria-label="About">About</a>
+      <a href="#projects" aria-label="Projects">Projects</a>
+      <a href="#contact" aria-label="Contact">Contact</a>
+      <a href="#blog" aria-label="Blog">Blog</a>
+    </nav>
+  </header>
+  <main class="container" id="home">
+    <section class="hero">
+      <h1>Igor Demovic</h1>
+      <p>Co-founder at ELIA • builder of product and people teams</p>
+      <p class="links">
+        <a href="https://www.elia.sk">ELIA</a> |
+        <a href="https://www.linkedin.com/in/igordemovic">LinkedIn</a> |
+        <a href="https://github.com/h0lysl4y3r">GitHub</a>
+      </p>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Igor Demovic</h2>
+      <p>Igor Demovic is the co-founder of ELIA, focused on building product and people teams that ship measurable outcomes. Based in Bratislava (CET).</p>
+      <p>Expanded bio: I lead initiatives across product strategy, execution, and talent development to drive growth and organizational impact. My focus areas include product discovery, go-to-market alignment, and building high-performing cross-functional teams that deliver measurable results.</p>
+      <p>Professional snapshot: entrepreneurship, early-stage product leadership, coaching, and mentoring. Passionate about turning visions into shipped outcomes and creating environments where teams thrive.</p>
+    </section>
+
+    <section id="experience" class="section" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience & Focus</h2>
+      <ul>
+        <li>ELIA — Co-founder and product/people leader; shaping strategy, culture, and execution.</li>
+        <li>Product leadership: roadmap planning, experimentation, and metrics-driven delivery.</li>
+        <li>People & org: hiring, team development, and performance management.</li>
+        <li>Advisory/mentorship: advising startups on product strategy and go-to-market.</li>
+      </ul>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="project-card">
+        <h3>ELIA — Co-founder perspective</h3>
+        <p>Strategy, product-led growth, and team development. Early-stage outcomes and learnings to be expanded with case studies later.</p>
+      </div>
+      <div class="project-card">
+        <h3>Advisory / Mentorship</h3>
+        <p>Mentoring and guidance on product and people strategy.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <form id="contact-form" action="/api/contact" method="post" aria-label="Contact form" novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required minlength="2" placeholder="Your name" />
+          <span class="error" id="name-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+          <span class="error" id="email-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required minlength="10" placeholder="Your message..."></textarea>
+          <span class="error" id="message-error"></span>
+        </div>
+        <button type="submit">Send</button>
+        <p id="form-status" class="form-status"></p>
+      </form>
+      <p>Blog coming soon — this space will host posts and case studies.</p>
+    </section>
+
+    <section id="blog" class="section" aria-labelledby="blog-heading">
+      <h2 id="blog-heading">Blog</h2>
+      <article class="blog-post">
+        <h3>Synot Peak Case Study: Elevating ELIA’s Product Strategy</h3>
+        <p class="post-meta">Published on 2026-03-13</p>
+        <p>A deep dive into how we scoped, tested, and iterated a product-led growth approach to Synot Peak, driving alignment across product, marketing, and sales.</p>
+        <p><a href="blog-synot-peak.html">Read full case study</a></p>
+      </article>
+      <div class="blog-footer">
+        <p>Site co-created with <a href="#">Igor's Assistant</a> 😊</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 Igor Demovic. All rights reserved.</p>
+  </footer>
+  <script>
+    (function () {
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+
+      function showError(id, msg) {
+        document.getElementById(id).textContent = msg;
+      }
+      function clearErrors() {
+        document.querySelectorAll('.error').forEach(e => e.textContent = '');
+        status.textContent = '';
+        status.className = 'form-status';
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        clearErrors();
+
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        let valid = true;
+
+        if (name.length < 2) { showError('name-error', 'Name must be at least 2 characters.'); valid = false; }
+        if (!/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) { showError('email-error', 'Please enter a valid email.'); valid = false; }
+        if (message.length < 10) { showError('message-error', 'Message must be at least 10 characters.'); valid = false; }
+        if (!valid) return;
+
+        status.textContent = 'Sending...';
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
+          });
+          const data = await res.json();
+          if (res.ok) {
+            status.textContent = 'Message sent! Thank you.';
+            status.classList.add('success');
+            form.reset();
+          } else {
+            status.textContent = data.error || 'Something went wrong. Please try again.';
+            status.classList.add('fail');
+          }
+        } catch (err) {
+          status.textContent = 'Network error. Please try again later.';
+          status.classList.add('fail');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
