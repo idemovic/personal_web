@@ -3,48 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Synot Peak Case Study - ELIA</title>
-  <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+  <title>Parting Ways with Synot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .nav{padding:20px;border-bottom:1px solid var(--border);display:flex;gap:20px}
+    .nav a{color:var(--muted);border:none}
+    .nav a:hover{color:#fff;background:none}
+    .container{max-width:800px;margin:0 auto;padding:40px 20px}
+    .blog-post{background:var(--surface);border:1px solid var(--border);padding:30px}
+    h1{font-size:1.8rem;margin:0 0 10px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+    h2{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:32px 0 10px;color:#fff}
+    .post-meta{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+    p{color:var(--text-secondary);line-height:1.7;margin-bottom:20px}
+    ul{color:var(--text-secondary);line-height:1.8;padding-left:20px;margin-bottom:20px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);margin:24px 0}
+    .stat{padding:20px;text-align:center;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none}
+    .stat-num{font-size:1.8rem;font-weight:900;color:#fff}
+    .stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+    .signature{text-align:right;margin-top:40px;color:var(--muted);font-size:.9rem}
+    .footer{text-align:center;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+    @media(max-width:600px){.stats{grid-template-columns:1fr}.stat{border-right:none;border-bottom:1px solid var(--border)}}
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">Igor Demovic</div>
-    <nav>
-      <a href="/personal_web/index.html#home">Home</a>
-      <a href="/personal_web/index.html#about">About</a>
-      <a href="/personal_web/index.html#projects">Projects</a>
-      <a href="/personal_web/index.html#contact">Contact</a>
-      <a href="/personal_web/index.html#blog">Blog</a>
-    </nav>
-  </header>
-  <main class="container" id="blog-root">
+  <nav class="nav">
+    <a href="index.html">← BACK TO HOME</a>
+  </nav>
+  <main class="container">
     <article class="blog-post">
-      <h1>Synot Peak Case Study: Elevating ELIA’s Product Strategy</h1>
-      <p class="post-meta">Published on 2026-03-13</p>
-      <p>Synot Peak was a learning loop for transforming product ideas into scalable outcomes. This post walks through the discovery, strategy, execution, and measured impact across the organization.</p>
-      <h2>Challenge</h2>
-      <p>Align product discovery, development, and go-to-market to deliver quick customer value.</p>
-      <h2>Approach</h2>
-      <p>Discovery, lean roadmap, cross-functional collaboration, and defined success metrics.</p>
-      <h2>Outcomes</h2>
-      <p>Faster onboarding, stronger product-market fit signals, and a repeatable playbook for PLG at ELIA.</p>
-      <h2>Solution highlights</h2>
+      <h1>Parting Ways with Synot</h1>
+      <p class="post-meta">Published on 2026-03-01</p>
+
+      <p>After more than three years, my journey with SYNOT Games has come to a close. As Delivery Manager, Backend Coder, and Business Analyst, I worked alongside my senior, self-propelled team of 8 from ELIA to build PEAK from a blank canvas into a fully featured global product — available today to 1,800+ partners across 32 languages.</p>
+
+      <p>It was one of the most complex, rewarding and humbling projects I've been part of. Here's what we built, and what I'm taking away.</p>
+
+      <h2>The Challenge</h2>
+      <p>In late 2022, SYNOT Games had a world-class game portfolio but lacked a proprietary, unified ecosystem to drive long-term player loyalty. Third-party tools weren't cutting it for a global holding aiming to lead the market. They needed a green-field solution — a robust, multi-tenant retention engine capable of handling millions of real-time events without impacting game performance.</p>
+      <p>My role was to take a high-level vision and turn it into a market-ready reality, navigating complex legal and technical nuances of the iGaming industry while racing against a 12-month deadline.</p>
+
+      <h2>What We Built</h2>
+      <p>PEAK is a comprehensive promotional and retention platform enabling iGaming operators to run tournaments, prize drops, challenges, and wheel of fortune mechanics with minimal technical friction. We started with a "Rapid Prototype" phase — delivering a functional proof-of-concept within the first 30 days to validate the core user journey.</p>
+      <p>From there, we engineered a high-concurrency retention engine with asynchronous multi-tenancy, real-time signal architecture handling thousands of concurrent player actions per second, and a modular compliance layer for global regulatory fragmentation.</p>
+
+      <h2>The Numbers</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">+120%</div>
+          <div class="stat-label">Engagement — time & games played</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">+70%</div>
+          <div class="stat-label">Total Bet vs baseline</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1800+</div>
+          <div class="stat-label">Partners in 32 languages</div>
+        </div>
+      </div>
+
+      <h2>Tech Stack</h2>
+      <p><strong>Frontend:</strong> Built with <a href="https://lit.dev" target="_blank" rel="noopener">Lit</a> and Vite — every component custom-built, loaded as lightweight plugins directly into the game environment. Frontend analytics piped to a custom tracking server for granular player-level telemetry.</p>
+      <p><strong>Backend:</strong> ASP.NET Core on Microsoft SQL Server, with a high-performance in-process, in-memory engine running on event-driven architecture via RabbitMQ. Backend analytics and metrics shipped to Azure. The whole system orchestrated as microservices via <a href="https://azure.microsoft.com/en-us/products/service-fabric" target="_blank" rel="noopener">Microsoft Service Fabric</a> running on-premises. Built as a multi-tenant white-label solution with pluggable entity resolution and payout.</p>
+
+      <h2>What I'm Taking Away</h2>
       <ul>
-        <li>High-concurrency retention engine with multi-tenant support and real-time analytics.</li>
-        <li>Modular Compliance Layer to toggle features by jurisdiction without core changes.</li>
-        <li>Real-Time Signal Architecture for thousands of concurrent events.</li>
-        <li>In-game overlay delivering a seamless retention experience.</li>
+        <li>Senior teams don't need managing — they need clarity, trust, and room to run.</li>
+        <li>Real-time architecture is unforgiving. Design for failure from day one.</li>
+        <li>The best product decisions happen at the intersection of business, compliance, and UX.</li>
+        <li>Shipping globally means thinking in edge cases before the center cases.</li>
       </ul>
-      <h2>Architecture & Engineering</h2>
-      <p>Event-driven architecture, in-game widgets, automatic payouts, and real-time analytics integrated into a unified platform.</p>
-      <h2>Outcomes & Business Impact</h2>
-      <p>100% proprietary ownership, market-ready speed (12 months), and a scalable playbook for future promotions and tenants.</p>
-      <p>Quoted: "Thanks to ELIA, we now have a high‑performance engagement and promotion platform that significantly elevates our capabilities. We look forward to continuing collaboration."</p>
-      <p>Next steps: Apply learnings to upcoming ELIA initiatives and publish additional case studies as needed.</p>
-      <p>Signature: 🦞</p>
-      <p class="read-more"><a href="https://elia.sk/case-study-synot-peak.html" target="_blank" rel="noopener">Read the original on ELIA</a></p>
+
+      <p>Grateful for the team, the challenge, and what we shipped together. On to the next one.</p>
+
+      <p class="signature">With help from 🦞</p>
     </article>
   </main>
+  <footer class="footer">
+    <p>© 2026 IGOR DEMOVIC. ALL RIGHTS RESERVED.</p>
+  </footer>
 </body>
 </html>

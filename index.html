@@ -4,150 +4,223 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Igor Demovic | ELIA Co-founder</title>
-  <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta name="description" content="Igor Demovic – Co-founder at ELIA. Building product and people teams, sharing stories about startup growth and case studies."/>
+  <meta property="og:title" content="Igor Demovic | ELIA Co-founder"/>
+  <meta property="og:description" content="Personal site for Igor Demovic showcasing ELIA, projects, and blog posts."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://your-domain-or-username.github.io/your-repo/"/>
+  <meta property="og:image" content="/path/to/og-image.png"/>
+  <meta name="twitter:card" content="summary"/>
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --surface-2:#1a1a1a;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+      --shadow:0 4px 12px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .hero{padding:60px 20px 40px;border:1px solid var(--border);margin:20px 0 40px;background:var(--surface)}
+    .hero h1{font-size:clamp(2.5rem,6vw,4rem);line-height:1.1;margin:0 0 12px;font-weight:900;letter-spacing:-.02em}
+    .hero p{font-size:1.05rem;margin:6px 0;color:var(--text-secondary)}
+    section{padding:40px 0;border-top:1px solid var(--border)}
+    .section h2{font-size:1.5rem;font-weight:800;margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border)}
+    .blog-post-excerpt{background:var(--surface);border-right:1px solid var(--border);padding:20px;margin:0}
+    .blog-post-excerpt:last-child{border-right:none}
+    .blog-post-excerpt h3{font-size:1rem;margin:0 0 8px;font-weight:700}
+    .post-meta{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+    .blog-post-excerpt p{color:var(--text-secondary);line-height:1.5;font-size:.9rem}
+    .project-card{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px}
+    .project-card h3{margin:0 0 8px;font-size:1.1rem;font-weight:700}
+    .project-card p{color:var(--text-secondary);line-height:1.5}
+    .site-footer{text-align:center;padding:24px 10px;border-top:1px solid var(--border);background:var(--bg);color:var(--muted)}
+
+    /* Hero Links */
+    .hero-links{display:flex;gap:0;margin-top:24px;flex-wrap:wrap}
+    .hero-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:12px 20px;
+      font-size:.875rem;font-weight:600;
+      text-decoration:none;
+      border:1px solid var(--border);
+      background:var(--surface);
+      color:#fff;
+      transition:all .2s;
+    }
+    .hero-btn:hover{background:#fff;color:#000}
+    .hero-btn svg{flex-shrink:0}
+    .quote-block{margin-top:32px;padding:20px;border-left:2px solid #fff;background:#0a0a0a}
+    .quote-block blockquote{margin:0;font-size:1rem;font-style:italic;color:#cccccc;line-height:1.7;font-weight:300}
+    .quote-block cite{display:block;margin-top:10px;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:#666;font-style:normal}
+    .quote-block cite span{display:block;font-style:italic;font-size:.65rem;margin-bottom:4px}
+    @media (max-width:900px){.blog-grid{grid-template-columns:1fr}.blog-post-excerpt{border-right:none;border-bottom:1px solid var(--border)}}
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">Igor Demovic</div>
-    <nav>
-      <a href="#home" aria-label="Home">Home</a>
-      <a href="#about" aria-label="About">About</a>
-      <a href="#projects" aria-label="Projects">Projects</a>
-      <a href="#contact" aria-label="Contact">Contact</a>
-      <a href="#blog" aria-label="Blog">Blog</a>
-    </nav>
-  </header>
+
   <main class="container" id="home">
-    <section class="hero">
-      <h1>Igor Demovic</h1>
+    <section class="hero" aria-label="Intro">
+      <h1>IGOR DEMOVIC</h1>
       <p>Co-founder at ELIA • builder of product and people teams</p>
-      <p class="links">
-        <a href="https://www.elia.sk">ELIA</a> |
-        <a href="https://www.linkedin.com/in/igordemovic">LinkedIn</a> |
-        <a href="https://github.com/h0lysl4y3r">GitHub</a>
+      <p style="color:var(--muted);font-size:.875rem;margin-top:8px;line-height:1.6;">
+        Igor is a Slavic name meaning <em>"warrior"</em> — and true to that, Igor Demovic has spent his career building things worth fighting for: teams that ship, products that matter, and companies that last. Based in Bratislava, Slovakia. After 20 years, he still loves coding.
       </p>
-    </section>
-
-    <section id="about" class="section" aria-labelledby="about-heading">
-      <h2 id="about-heading">About Igor Demovic</h2>
-      <p>Igor Demovic is the co-founder of ELIA, focused on building product and people teams that ship measurable outcomes. Based in Bratislava (CET).</p>
-      <p>Expanded bio: I lead initiatives across product strategy, execution, and talent development to drive growth and organizational impact. My focus areas include product discovery, go-to-market alignment, and building high-performing cross-functional teams that deliver measurable results.</p>
-      <p>Professional snapshot: entrepreneurship, early-stage product leadership, coaching, and mentoring. Passionate about turning visions into shipped outcomes and creating environments where teams thrive.</p>
-    </section>
-
-    <section id="experience" class="section" aria-labelledby="experience-heading">
-      <h2 id="experience-heading">Experience & Focus</h2>
-      <ul>
-        <li>ELIA — Co-founder and product/people leader; shaping strategy, culture, and execution.</li>
-        <li>Product leadership: roadmap planning, experimentation, and metrics-driven delivery.</li>
-        <li>People & org: hiring, team development, and performance management.</li>
-        <li>Advisory/mentorship: advising startups on product strategy and go-to-market.</li>
-      </ul>
-    </section>
-
-    <section id="projects" class="section" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Projects</h2>
-      <div class="project-card">
-        <h3>ELIA — Co-founder perspective</h3>
-        <p>Strategy, product-led growth, and team development. Early-stage outcomes and learnings to be expanded with case studies later.</p>
+      <div class="hero-links">
+        <a class="hero-btn" href="https://www.elia.sk" target="_blank" rel="noopener">
+          ELIA
+        </a>
+        <a class="hero-btn" href="https://www.linkedin.com/in/igordemovic" target="_blank" rel="noopener">
+          LINKEDIN
+        </a>
+        <a class="hero-btn" href="https://github.com/idemovic" target="_blank" rel="noopener">
+          GITHUB
+        </a>
       </div>
-      <div class="project-card">
-        <h3>Advisory / Mentorship</h3>
-        <p>Mentoring and guidance on product and people strategy.</p>
+      <p style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#555;margin-top:32px;margin-bottom:8px;">Jot for stoics</p>
+      <div class="quote-block">
+        <blockquote id="marcus-quote"></blockquote>
+        <cite>— Marcus Aurelius, Meditations</cite>
       </div>
     </section>
-
-    <section id="contact" class="section" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact</h2>
-      <form id="contact-form" action="/api/contact" method="post" aria-label="Contact form" novalidate>
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required minlength="2" placeholder="Your name" />
-          <span class="error" id="name-error"></span>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="you@example.com" />
-          <span class="error" id="email-error"></span>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4" required minlength="10" placeholder="Your message..."></textarea>
-          <span class="error" id="message-error"></span>
-        </div>
-        <button type="submit">Send</button>
-        <p id="form-status" class="form-status"></p>
-      </form>
-      <p>Blog coming soon — this space will host posts and case studies.</p>
-    </section>
+    <script>
+      const quotes = [
+        "You have power over your mind — not outside events. Realize this, and you will find strength.",
+        "The happiness of your life depends upon the quality of your thoughts.",
+        "Waste no more time arguing about what a good man should be. Be one.",
+        "Very little is needed to make a happy life; it is all within yourself, in your way of thinking.",
+        "When you arise in the morning think of what a privilege it is to be alive, to think, to enjoy, to love.",
+        "It is not death that a man should fear, but he should fear never beginning to live.",
+        "The best revenge is to be unlike him who performed the injury.",
+        "Accept the things to which fate binds you, and love the people with whom fate brings you together.",
+        "How much time he gains who does not look to see what his neighbor says or does or thinks.",
+        "If it is not right, do not do it; if it is not true, do not say it.",
+        "The soul becomes dyed with the color of its thoughts.",
+        "Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason.",
+        "Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth.",
+        "Our life is what our thoughts make it.",
+        "The object of life is not to be on the side of the majority, but to escape finding oneself in the ranks of the insane.",
+        "Choose not to be harmed — and you won't feel harmed. Don't feel harmed — and you haven't been.",
+        "Reject your sense of injury and the injury itself disappears.",
+        "When you are offended at any man's fault, turn to yourself and study your own failings.",
+        "Confine yourself to the present.",
+        "The impediment to action advances action. What stands in the way becomes the way.",
+        "Think of what you have rather than of what you lack.",
+        "You could leave life right now. Let that determine what you do and say and think.",
+        "Observe always that everything is the result of change.",
+        "Nothing is so bitter that a calm mind cannot find comfort in it.",
+        "The art of living is more like wrestling than dancing.",
+        "Never esteem anything as of advantage to you that will make you break your word.",
+        "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it.",
+        "Be tolerant with others and strict with yourself.",
+        "A man's worth is no greater than his ambitions.",
+        "To live a good life: we have the power to hold no opinion about a thing.",
+        "The first and best victory is to conquer self.",
+        "The wise man does nothing that he could repent of.",
+        "Wealth consists not in having great possessions, but in having few wants.",
+        "He who lives in harmony with himself lives in harmony with the universe.",
+        "Do not indulge in dreams of what you have not, but count the blessings you actually possess.",
+        "Begin at once to live, and count each separate day as a separate life.",
+        "It is not that we have a short time to live, but that we waste much of it.",
+        "Loss is nothing else but change, and change is Nature's delight.",
+        "He who fears death will never do anything worthy of a man who is alive.",
+        "Receive without pride, abandon without struggle.",
+        "The best answer to anger is silence.",
+        "The happiness of those who want to be popular depends on others; the happiness of those who seek pleasure fluctuates with moods outside their control; but the happiness of the wise grows out of their own free acts.",
+        "Nowhere can man find a quieter or more untroubled retreat than in his own soul.",
+        "To the wise, every day is a new life.",
+        "Look well into thyself; there is a source of strength which will always spring up if thou wilt always look.",
+        "The universe is change; our life is what our thoughts make it.",
+        "If someone is able to show me that what I think or do is not right, I will happily change.",
+        "You have the power to strip away many superfluous troubles which lie wholly in your judgment.",
+        "A man does not sin by commission only, but often by omission.",
+        "Think not of the outward show, but look within.",
+        "Wherever you go, there you are.",
+        "Never act except for a reason that you would not be ashamed to acknowledge.",
+        "Death is rest from the labors of existence, rest from impressions, from desires, from rest from reason.",
+        "Dig within. Within is the wellspring of Good.",
+        "Do every act of your life as though it were the very last act of your life.",
+        "Whatever you do, do with intention.",
+        "Make sure you are not too attached to what you love.",
+        "Take heed that you do not become a Caesar.",
+        "If any man despises me, that is his problem. My only concern is not doing or saying anything deserving of contempt.",
+        "Whoever has the luck to be born a philosopher, must exercise whatever wisdom he has acquired.",
+        "Do not seek to have events happen as you want them to, but instead want them to happen as they do happen.",
+        "I am a rational being and it is my job to rule my emotions.",
+        "Our actions may be impeded but there can be no impeding our intentions or dispositions.",
+        "What we do now echoes in eternity.",
+        "The tranquility that comes when you stop caring what they say, or think, or do. Only what you do.",
+        "Here is the rule to remember in the future: When anything tempts you to be bitter, the formula is: This is a misfortune, but to bear it is good fortune.",
+        "He who has a why to live can bear almost any how.",
+        "Begin the morning by saying to thyself, I shall meet with the busy-body, the ungrateful, arrogant, deceitful, envious, unsocial.",
+        "A man must plant a tree for a man to come; he must dig a well that he himself may never drink.",
+        "Adapt yourself to the things among which your lot has been cast, and love sincerely the fellow creatures with whom destiny has ordained that you shall live.",
+        "The things you think about determine the quality of your mind.",
+        "You shouldn't give circumstances the power to rouse anger, for they don't care at all.",
+        "If it is not within your power to do it, it is not your duty.",
+        "It is enough if each of us does his own work.",
+        "Be like the cliff against which the waves continually break; but it stands firm and tames the fury of the water around it.",
+        "How many have come into the world, lived their lives, and returned to the earth.",
+        "He who has strength within will find strength everywhere.",
+        "Everything harmonizes with me, which is harmonious to thee, O Universe.",
+        "To bear trials with a calm mind robs misfortune of its strength and burden.",
+        "Nothing happens to any man that he is not formed by nature to bear.",
+        "That which is not good for the swarm is not good for the bee.",
+        "Reason and free judgment are common to us all.",
+        "The first rule is to keep an untroubled spirit. The second is to look things in the face and know them for what they are.",
+        "Let thine occupations be few, saith the sage.",
+        "Perfection of character is this: to live each day as if it were your last.",
+        "Practice really hearing what people say. Do your best to get inside their mind.",
+        "The more we value things outside our control, the less control we have.",
+        "Loss is nothing else but change, and change is Nature's delight.",
+        "Each day provides its own gifts.",
+        "Focus on what is in your control.",
+        "Treat what you don't have as nonexistent.",
+        "The present moment always will have been.",
+        "External things are not the problem. It's your assessment of them. Which you can revoke at any moment.",
+        "I am not afraid of the task; I carry it lightly.",
+        "What harm can befall a man who knows and loves virtue?",
+        "The soul that has no fixed aim loses itself.",
+        "What must I do in order to have a good soul? Reason well.",
+        "He who is not a good servant will not be a good master.",
+        "Take short steps to the good.",
+        "Move straight ahead. Follow your own nature and the nature of the world.",
+        "From Marcus Aurelius comes this simple truth: do less, but do it well."
+      ];
+      document.getElementById('marcus-quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    </script>
 
     <section id="blog" class="section" aria-labelledby="blog-heading">
-      <h2 id="blog-heading">Blog</h2>
-      <article class="blog-post">
-        <h3>Synot Peak Case Study: Elevating ELIA’s Product Strategy</h3>
-        <p class="post-meta">Published on 2026-03-13</p>
-        <p>A deep dive into how we scoped, tested, and iterated a product-led growth approach to Synot Peak, driving alignment across product, marketing, and sales.</p>
-        <p><a href="blog-synot-peak.html">Read full case study</a></p>
-      </article>
-      <div class="blog-footer">
-        <p>Site co-created with <a href="#">Igor's Assistant</a> 😊</p>
+      <h2 id="blog-heading">BLOG</h2>
+      <div class="blog-grid">
+        <article class="blog-post-excerpt">
+          <h3>HOW WE STARTED A COOP JOURNEY TO 10X ME</h3>
+          <p class="date">PUBLISHED ON 2026-03-13</p>
+          <p>After 20 years of coding, I started building a team of AI agents to multiply what I can ship. This is how the 10x Me journey began — and what we're learning along the way.</p>
+          <p><a href="blog-10x-me.html">READ MORE</a></p>
+        </article>
+        <article class="blog-post-excerpt">
+          <h3>PARTING WAYS WITH SYNOT</h3>
+          <p class="date">PUBLISHED ON 2026-03-01</p>
+          <p>A deep dive into how we scoped, tested, and iterated a product-led growth approach for Synot Peak, driving cross-functional alignment and measurable impact. After more than three years, I'm taking away hard-won lessons from building a global retention platform.</p>
+          <p><a href="blog-synot-peak.html">READ MORE</a></p>
+        </article>
       </div>
+      <p style="margin-top:20px;"><a href="blogs.html" style="font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;">VIEW ALL POSTS →</a></p>
     </section>
+
+
   </main>
   <footer class="site-footer">
-    <p>&copy; 2026 Igor Demovic. All rights reserved.</p>
+    <p>© 2026 IGOR DEMOVIC and 🦞. ALL RIGHTS RESERVED.</p>
   </footer>
-  <script>
-    (function () {
-      const form = document.getElementById('contact-form');
-      const status = document.getElementById('form-status');
-
-      function showError(id, msg) {
-        document.getElementById(id).textContent = msg;
-      }
-      function clearErrors() {
-        document.querySelectorAll('.error').forEach(e => e.textContent = '');
-        status.textContent = '';
-        status.className = 'form-status';
-      }
-
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        clearErrors();
-
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const message = form.message.value.trim();
-        let valid = true;
-
-        if (name.length < 2) { showError('name-error', 'Name must be at least 2 characters.'); valid = false; }
-        if (!/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) { showError('email-error', 'Please enter a valid email.'); valid = false; }
-        if (message.length < 10) { showError('message-error', 'Message must be at least 10 characters.'); valid = false; }
-        if (!valid) return;
-
-        status.textContent = 'Sending...';
-        try {
-          const res = await fetch('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, message })
-          });
-          const data = await res.json();
-          if (res.ok) {
-            status.textContent = 'Message sent! Thank you.';
-            status.classList.add('success');
-            form.reset();
-          } else {
-            status.textContent = data.error || 'Something went wrong. Please try again.';
-            status.classList.add('fail');
-          }
-        } catch (err) {
-          status.textContent = 'Network error. Please try again later.';
-          status.classList.add('fail');
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
