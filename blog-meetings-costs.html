@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Real Cost of Meetings in an AI-First World</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .nav{padding:20px;border-bottom:1px solid var(--border);display:flex;gap:20px}
+    .nav a{color:var(--muted);border:none}
+    .nav a:hover{color:#fff;background:none}
+    .container{max-width:800px;margin:0 auto;padding:40px 20px}
+    .blog-post{background:var(--surface);border:1px solid var(--border);padding:30px}
+    h1{font-size:1.8rem;margin:0 0 10px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+    h2{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:32px 0 10px;color:#fff}
+    .post-meta{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+    p{color:var(--text-secondary);line-height:1.7;margin-bottom:20px}
+    ul{color:var(--text-secondary);line-height:1.8;padding-left:20px;margin-bottom:20px}
+    .callout{border-left:3px solid #fff;padding:12px 20px;margin:24px 0;background:#1a1a1a;display:none}
+    .signature{text-align:right;margin-top:40px;color:var(--muted);font-size:.9rem}
+    .footer{text-align:center;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">← BACK TO HOME</a>
+  </nav>
+  <main class="container">
+    <article class="blog-post">
+      <h1>The Real Cost of Meetings in an AI-First World</h1>
+      <p class="post-meta">Published on 2026-03-23</p>
+
+      <p>Last week I wrote ~14,400 lines of code. Solo. In 7 days. That's not a flex, it's a data point. And it changes the math on everything, including meetings.</p>
+
+      <p>At 200 lines/day, meetings cost you hours. At 2,000 lines/day, meetings cost you weeks.</p>
+
+      <h2>The Multiplier Effect</h2>
+      <p>When one engineer ships 200 lines, an 1-hour meeting costs them 10% of a workday. When AI lets one engineer ship 2,000 lines, that same meeting costs them a full day of output. The meeting didn't get more expensive. The velocity did.</p>
+      <p>Every hour in a meeting is no longer just an hour. It's 200 lines of code that won't exist. It's a feature that won't ship this sprint. It's momentum you won't get back.</p>
+
+      <h2>Why Hierarchies Thin Out</h2>
+      <p>Traditional org structure exists to coordinate humans who can't see everything. Managers align, directors synchronize, VPs prioritize. It's overhead to solve a coordination problem.</p>
+      <p>AI changes the math. One engineer with agents can see the whole codebase, own the whole stack, ship the whole feature. You don't need a layer of people to aggregate what one person can now hold in context.</p>
+      <p>Shallow hierarchy isn't a cultural choice, it's an economic one. When the cost of coordination (meetings, sync, hand-offs) exceeds the cost of duplication, you stop coordinating and start shipping solo.</p>
+
+      <h2>The Trade-Off</h2>
+      <p>This isn't without cost. Solo builders ship fast but drift fast. Without peer review, without cultural sync, you optimize for output over alignment. Eventually, you need humans for vision, for accountability, for the things machines can't hold.</p>
+      <p>The question isn't "meetings or no meetings." It's "what's worth coordinating, and what's worth letting fly solo?"</p>
+
+      <p class="signature">— Igor, with help from 🦞</p>
+    </article>
+  </main>
+  <footer class="footer">
+    <p>© 2026 IGOR DEMOVIC. ALL RIGHTS RESERVED.</p>
+  </footer>
+</body>
+</html>
