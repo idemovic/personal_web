@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>22,000 Lines Later: What Happens When AI Reviews Your Code Every Morning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .container{max-width:800px;margin:0 auto;padding:40px 20px}
+    nav.nav{padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:40px}
+    nav.nav a{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;border-bottom:none}
+    .blog-post{max-width:800px}
+    .blog-post h1{font-size:2rem;font-weight:800;margin-bottom:16px;line-height:1.2;letter-spacing:-.02em}
+    .blog-post .date{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:24px}
+    .blog-post p{font-size:1.05rem;line-height:1.7;color:var(--text-secondary);margin-bottom:20px}
+    .blog-post h2{font-size:1.3rem;font-weight:700;margin-top:32px;margin-bottom:14px;color:#fff}
+    .blog-post ul,.blog-post ol{color:var(--text-secondary);line-height:1.7;padding-left:24px;margin-bottom:20px}
+    .blog-post li{margin-bottom:6px}
+    .blog-post code{font-family:monospace;font-size:.9em;background:var(--surface);padding:2px 6px;border-radius:3px}
+    .callout{border-left:3px solid #fff;padding:14px 18px;margin:20px 0;background:#1a1a1a}
+    .callout p{margin:0;color:#fff;font-weight:500}
+    .stat-block{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;padding:16px;background:var(--surface);border:1px solid var(--border)}
+    .stat-block .stat{text-align:center}
+    .stat-block .stat-value{font-size:1.6rem;font-weight:800;color:#fff}
+    .stat-block .stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .signature{text-align:right;margin-top:32px;color:var(--muted);font-size:.9rem}
+    .footer{text-align:center;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="nav container">
+    <a href="index.html">← BACK TO HOME</a>
+  </nav>
+  <main class="container">
+    <article class="blog-post">
+      <h1>22,000 Lines Later: AI Reviews My Code Every Morning</h1>
+      <p class="date">Published on 2026-03-31</p>
+
+      <div class="callout">
+        <p>I wrote 22,393 lines of code last week. Every morning, two AI models had already reviewed it before my first coffee.</p>
+      </div>
+
+      <p>That's the number that matters. Velocity without review is debt. With review? That's compound interest on quality.</p>
+
+      <h2>The Numbers</h2>
+
+      <div class="stat-block">
+        <div class="stat">
+          <div class="stat-value">22,393</div>
+          <div class="stat-label">Lines Added</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">7,352</div>
+          <div class="stat-label">Lines Deleted</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">130</div>
+          <div class="stat-label">Files Changed</div>
+        </div>
+      </div>
+
+      <p>Two codebases, the 7,352 deleted lines? That's refactoring, not just adding.</p>
+
+      <h2>The Setup</h2>
+
+      <p>Every morning at 9 AM UTC, OpenClaw runs a pipeline:</p>
+
+      <ol>
+        <li>Pull latest from both repos</li>
+        <li>Find files changed in last 24h via <code>git log</code></li>
+        <li>Send them to Minimax M2.5 and GPT-5</li>
+        <li>Aggregate suggestions into a web report</li>
+      </ol>
+
+      <p>No manual steps. The report is just there.</p>
+
+      <h2>Why Git Log Matters</h2>
+
+      <p>Scanning all files in repo every day is noise. Now it only sends what changed, typically 30-100 files. The models don't need your whole codebase. They need what you wrote today.</p>
+
+      <h2>The Honest Caveats</h2>
+
+      <p>They hallucinate sometimes. GPT-5 returns encrypted reasoning instead of content occasionally. Sometimes they flag non-issues.</p>
+
+      <p>But I'd rather filter false positives than miss real bugs. The human decides what to fix. AI just makes sure you have a second (and third) opinion on everything.</p>
+
+      <p>If you're writing AI-assisted code: who's reviewing it?</p>
+
+      <p class="signature">🦞</p>
+    </article>
+  </main>
+  <footer class="footer container">
+    <p>© 2026 Igor Demovic and 🦞. All rights reserved.</p>
+  </footer>
+</body>
+</html>
