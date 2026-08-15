@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment Service Provider (Stripe) vs. Merchant of Record (Paddle): The SaaS Founder's Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta name="description" content="Stripe vs. Paddle is not a pricing question, it is an architecture question. A founder's guide to PSPs, Merchants of Record, EU VAT and the hybrid setups replacing the either/or."/>
+  <meta property="og:title" content="Payment Service Provider (Stripe) vs. Merchant of Record (Paddle): The SaaS Founder's Guide"/>
+  <meta property="og:description" content="Stripe vs. Paddle is not a pricing question, it is an architecture question. A founder's guide to PSPs, Merchants of Record, EU VAT and the hybrid setups replacing the either/or."/>
+  <meta property="og:type" content="article"/>
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .nav{padding:20px;border-bottom:1px solid var(--border);display:flex;gap:20px}
+    .nav a{color:var(--muted);border:none}
+    .nav a:hover{color:#fff;background:none}
+    .container{max-width:800px;margin:0 auto;padding:40px 20px}
+    .blog-post{background:var(--surface);border:1px solid var(--border);padding:30px}
+    h1{font-size:1.8rem;margin:0 0 10px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+    h2{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:32px 0 10px;color:#fff}
+    h3{font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:24px 0 8px;color:#fff}
+    .post-meta{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+    p{color:var(--text-secondary);line-height:1.7;margin-bottom:20px}
+    ul,ol{color:var(--text-secondary);line-height:1.8;padding-left:20px;margin-bottom:20px}
+    li{margin-bottom:8px}
+    strong{color:#fff}
+    code{background:#1a1a1a;border:1px solid var(--border);padding:1px 6px;font-family:ui-monospace,Consolas,monospace;font-size:.85em;color:#fff}
+    .callout{border-left:3px solid #fff;padding:14px 18px;margin:24px 0;background:#1a1a1a}
+    .callout p{margin:0;color:#fff;font-weight:500}
+    .table-wrap{overflow-x:auto;margin:20px 0}
+    table{width:100%;border-collapse:collapse;font-size:.85rem;background:#0a0a0a}
+    th,td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;color:var(--text-secondary);line-height:1.5}
+    th{color:#fff;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;background:#1a1a1a}
+    td strong{color:#fff}
+    .diagram-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:20px 0 6px}
+    pre.mermaid{background:#0a0a0a;border:1px solid var(--border);padding:16px;margin:0 0 20px;display:flex;justify-content:center;overflow-x:auto}
+    .footer{text-align:center;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">← BACK TO HOME</a>
+  </nav>
+  <main class="container">
+    <article class="blog-post">
+      <h1>Payment Service Provider (Stripe) vs. Merchant of Record (Paddle): The SaaS Founder's Guide</h1>
+      <p class="post-meta">Published on 2026-08-14</p>
+
+      <p>When scaling a SaaS product internationally, founders (including me) usually hit a sharp operational wall around payments, cross-border tax compliance, and local merchant entities.</p>
+
+      <div class="callout">
+        <p>The choice isn't just about picking Stripe vs. Paddle. It's an architectural and operational decision between two fundamentally different financial models: Payment Service Providers (PSPs) and Merchants of Record (MoRs).</p>
+      </div>
+
+      <h2>1. Core Structural Difference</h2>
+
+      <p>The primary distinction comes down to <strong>legal ownership of the transaction</strong> and <strong>where financial liability sits</strong>.</p>
+
+      <p class="diagram-label">PSP Flow</p>
+      <pre class="mermaid">
+flowchart LR
+    C["Customer"] --> P["Payment Processing Tech (PSP)"]
+    P --> E["Your Legal Entity<br/>(Seller on Record)"]
+    E --> T["You handle Tax, VAT, Disputes"]
+      </pre>
+
+      <p class="diagram-label">MoR Flow</p>
+      <pre class="mermaid">
+flowchart LR
+    C["Customer"] --> M["Merchant of Record<br/>(Legal Reseller / Seller)"]
+    M --> R["Handles Tax, VAT, Chargebacks, Risk"]
+    M --> Y["Payout to Your Entity"]
+      </pre>
+
+      <ul>
+        <li><strong>Payment Service Provider (PSP):</strong> Acts as a technical rails partner. They process money from the buyer's account to yours. <strong>You remain the seller/merchant of record</strong> and retain responsibility for applicable tax obligations such as Value Added Tax (VAT), Goods and Services Tax (GST) or sales tax, for disputes and chargebacks, and for your own PCI obligations. The scope of PCI compliance depends on how you integrate the PSP.</li>
+        <li><strong>Merchant of Record (MoR):</strong> Acts as a legal reseller of your software. The MoR buys the software license from you instantly at checkout and resells it to the end customer. <strong>The MoR is the legal seller/reseller in the transaction</strong>, taking on tax remittance, chargeback management, and local regulatory adherence. What the customer actually sees on their card statement is a separate question, determined by the MoR's descriptor configuration.</li>
+      </ul>
+
+      <h2>2. PSP vs. MoR Comparison</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Feature / Responsibility</th><th>Payment Service Provider (PSP)</th><th>Merchant of Record (MoR)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Legal Seller</strong></td><td>Your Company</td><td>The MoR Entity (e.g., Paddle, Lemon Squeezy, FastSpring)</td></tr>
+            <tr><td><strong>Headline Rates</strong></td><td>Lower upfront (~2.9% + $0.30 in the US, ~1.5% + €0.25 for EEA cards on an EU entity)</td><td>Higher headline fee (~5% + 50¢ or custom)</td></tr>
+            <tr><td><strong>Global Indirect Tax (VAT/GST)</strong></td><td>You calculate, register, file, and remit</td><td>Transaction tax offloaded to the MoR (your own corporate tax and accounting remain)</td></tr>
+            <tr><td><strong>Chargebacks &amp; Fraud Risk</strong></td><td>Ultimate dispute liability sits with you</td><td>MoR manages transaction-level risk and the chargeback workflow, subject to its terms and acceptable-use policies</td></tr>
+            <tr><td><strong>Payout Mechanics</strong></td><td>Direct daily/rolling payouts</td><td>Provider-dependent and generally less flexible; often batched on a fixed monthly cycle</td></tr>
+            <tr><td><strong>Merchant Identity on Card Statement</strong></td><td>Your Brand Name</td><td>Typically <code>MoR * Your Brand Name</code>, depending on descriptor configuration</td></tr>
+            <tr><td><strong>Payout &amp; Entity Overhead</strong></td><td>High if opening multi-region bank accounts</td><td>Low (one payout channel worldwide)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>3. Deep-Dive Tradeoffs</h2>
+
+      <h3>Option A: Payment Service Provider (Stripe, Adyen, Braintree)</h3>
+
+      <p><strong>The Build-Your-Own-Stack Approach</strong></p>
+
+      <p><strong>Pros:</strong></p>
+      <ul>
+        <li><strong>Unit Economics at Scale:</strong> Standard percentage processing fees are lower.</li>
+        <li><strong>Granular Control:</strong> Total ownership over the checkout UI, subscription engine, retry mechanisms, and customer billing data.</li>
+        <li><strong>Direct Relationships:</strong> Clean branding on card statements and direct payouts.</li>
+      </ul>
+
+      <p><strong>Cons &amp; Hidden Costs:</strong></p>
+      <ul>
+        <li><strong>Nexus and Filing Burden:</strong> Selling globally can mean registering for indirect taxes across many jurisdictions (US states, EU, UK, Canada, Australia). How heavy this gets scales with how much of your revenue is cross-border B2C; a B2B book under reverse charge is a much lighter load than a self-serve consumer one.</li>
+        <li><strong>SaaS Stack Bloat:</strong> You will often need to layer on tools like TaxJar/Anrok/Avalara for tax calculation, a subscription engine (e.g., Chargebee/Recurly), and fraud tools.</li>
+      </ul>
+
+      <h3>Option B: Merchant of Record (Paddle, Lemon Squeezy, FastSpring, Polar)</h3>
+
+      <p><strong>The Offloaded Compliance Engine</strong></p>
+
+      <p><strong>Pros:</strong></p>
+      <ul>
+        <li><strong>Offloaded Transaction-Tax Compliance:</strong> Cross-border sales tax, VAT, and GST calculation and filing on your sales move to the MoR. Note this is not <em>zero</em> tax work: you still handle accounting for payouts, revenue recognition, reconciliation, product tax classification, and corporate income tax on your own business.</li>
+        <li><strong>Rapid International Expansion:</strong> Sell into most markets without establishing a local merchant entity or local acquiring in each one. Availability is not unlimited, though; sanctions, export controls, prohibited product categories, payment-method coverage and the MoR's own risk policies all constrain where you can actually sell.</li>
+        <li><strong>Operational Simplicity:</strong> Single consolidated payout, handled chargebacks, and built-in subscription management.</li>
+      </ul>
+
+      <p><strong>Cons:</strong></p>
+      <ul>
+        <li><strong>Higher Direct Take Rate:</strong> The headline percentage is higher to cover the tax compliance and risk exposure. Economics vary by provider, so treat the ~5% figure as a reference point rather than a market rate; some price differently, including tiered or subscription components.</li>
+        <li><strong>Less Customization:</strong> Custom enterprise billing arrangements, bespoke invoicing flows, or high-touch merchant descriptor configurations can be constrained by the MoR's platform boundaries.</li>
+        <li><strong>The MoR Sits Between You and Your Customer:</strong> This is the tradeoff founders underrate. The MoR is commercially interposed in the relationship, which touches who issues the invoice, who sets the terms of sale, how refunds and renewals work, which payment methods and discounts are available, what customer data you receive, and how revenue recognition falls out. Paddle's terms, for instance, give it authority over the final retail price charged to the buyer. Migrating away later is a commercial and data problem, not just an integration swap: the card tokens live in the MoR's acquiring setup and are generally not portable, so leaving means pushing your subscriber base through a re-checkout and losing a slice of it on the way. Investors rarely care at seed, but in late-stage or acquisition diligence this surfaces as a quality-of-revenue question: who is your customer's contractual counterparty, and what does it cost to take the relationship back? The fair counterweight is that an MoR also removes a diligence red flag, because unregistered VAT liabilities across many jurisdictions are a classic M&amp;A escrow fight, and "the MoR handled that" is a clean answer.</li>
+      </ul>
+
+      <h2>4. How to Choose: Decision Framework</h2>
+
+      <pre class="mermaid">
+flowchart TD
+    Q1{"Where are your customers?"}
+    Q1 -->|"Single Country / US-only"| Q2{"B2B or B2C SaaS?"}
+    Q1 -->|"Global / Multi-Region"| Q3{"B2B or B2C SaaS?"}
+    Q2 -->|"B2B"| A1["PSP + Tax Tool"]
+    Q2 -->|"B2C"| A2["PSP or MoR"]
+    Q3 -->|"Mostly B2C"| A3["Pure MoR"]
+    Q3 -->|"Enterprise B2B"| A4["Hybrid / PSP + Reverse Charge"]
+      </pre>
+
+      <h3>Choose an MoR if:</h3>
+      <ol>
+        <li><strong>You sell B2C software or self-serve B2B globally:</strong> Managing micro-registrations for VAT/GST in 30+ countries manually will destroy engineering and accounting velocity.</li>
+        <li><strong>You have a lean engineering/finance team:</strong> You prefer paying a higher percentage to avoid hiring external tax advisors or building dedicated billing infrastructure.</li>
+        <li><strong>Speed to market matters:</strong> You need to start taking cross-border subscription payments instantly.</li>
+      </ol>
+
+      <h3>Choose a PSP if:</h3>
+      <ol>
+        <li><strong>You are purely domestic or operate in a single currency union</strong> (e.g., US-only or localized EU).</li>
+        <li><strong>Your customer base is overwhelmingly B2B with valid tax IDs:</strong> A predominantly B2B base materially reduces indirect-tax collection complexity where valid VAT IDs and reverse-charge rules apply. It does not eliminate global tax compliance: you still deal with customer location evidence, VAT ID validation, invoicing requirements, domestic B2B sales, US sales tax, and GST regimes in Canada, Australia and elsewhere. The EU rules are also moving, with ViDA (VAT in the Digital Age) changes phasing in from 2027.</li>
+        <li><strong>You process high volume ($10M+ ARR):</strong> The gap between a ~3% PSP cost and a ~5% MoR fee represents substantial capital that easily funds dedicated in-house tax ops and tool integrations.</li>
+      </ol>
+
+      <h2>5. The European Case: Running a PSP Setup from an EU Entity</h2>
+
+      <p>If you go the PSP route from an EU company (my case), the compliance work you take on is concrete and well-defined. Here is what it looks like in practice.</p>
+
+      <pre class="mermaid">
+flowchart TD
+    S["Sale"] --> W{"Where is the buyer?"}
+    W -->|"EU"| B{"Valid VAT ID?"}
+    W -->|"US"| US["No VAT<br/>Assess state sales-tax nexus"]
+    W -->|"Non-EU"| ROW["Determine local indirect-tax rules<br/>(GST/VAT thresholds vary)"]
+    B -->|"Yes (VIES validated)"| RC["No VAT charged by you<br/>Invoice states reverse charge applies"]
+    B -->|"No (consumer)"| T{"Cross-border EU B2C<br/>over EUR 10,000/year?"}
+    T -->|"No"| SK["Charge your home country VAT rate<br/>File domestically as usual"]
+    T -->|"Yes"| OSS["Charge buyer's local VAT rate<br/>File one quarterly Union OSS return"]
+      </pre>
+
+      <p><strong>How it works under EU tax law:</strong></p>
+
+      <ul>
+        <li><strong>EU B2B sales:</strong> You collect the buyer's VAT ID at checkout and validate it instantly via VIES (VAT Information Exchange System). If it is valid, you charge no VAT and the invoice states that the reverse-charge mechanism applies; the customer accounts for VAT in its own jurisdiction. Worth being precise here: this is not a "0% VAT" or zero-rated supply, it is a shift of who accounts for the tax.</li>
+        <li><strong>EU B2C sales:</strong> There is a EUR 10,000 annual threshold covering cross-border intra-EU B2C supplies of telecommunications, broadcasting and electronically supplied services together with intra-EU distance sales of goods. Below it, home-country VAT rules can continue to apply. Above it, destination-country VAT generally applies, and Union OSS (One Stop Shop) is the simplification that lets you register once with your home tax authority, charge local rates (e.g., 19% Germany, 21% Spain) and file one consolidated quarterly return instead of registering in every member state. Note this is a threshold on qualifying cross-border sales, not on all your EU revenue.</li>
+        <li><strong>US sales:</strong> The US has no VAT, so there is nothing to charge, but you must monitor each state's economic nexus rules. Thresholds are state-specific and change; many sit around $100,000 in sales into that state, some also count transactions. Tools like Stripe Tax track this for you.</li>
+        <li><strong>Rest of world:</strong> Do not assume "non-EU means no indirect tax." Australia, New Zealand, Canada, the UK, Norway, Switzerland, Japan, Singapore and many others have VAT or GST regimes with their own registration thresholds for foreign digital sellers. Each market you sell into meaningfully needs its own determination.</li>
+      </ul>
+
+      <p><strong>The part that changes the math:</strong> your EEA (European Economic Area) rate does not apply to US cards. On an EU Stripe account a non-EEA card is currently 3.15% + €0.25, with a further 2% where currency conversion is required. Charge in dollars and settle in euros and you are at roughly 5.15% - and note what that number is: pure payment processing, before you have paid for a tax engine, nexus tracking, fraud tooling or dispute handling. Paddle's 5% + 50¢ is its all-in price <em>including</em> all of those. When raw processing alone reaches the MoR's total fee, the PSP margin advantage on that revenue is not thinner, it is gone. So the advantage is real on EEA cards and absent on converted US card volume, which happens to be the same revenue that carries the nexus tracking burden. If you sell mostly into the US from an EU entity, run this calculation with your own card mix before assuming PSP is the cheaper architecture.</p>
+
+      <p><strong>Best for:</strong> Pure B2B SaaS, where reverse charge already does most of the work, and SaaS whose revenue is concentrated in EEA cards, where the retained margin comfortably covers compliance software and an accountant who knows cross-border VAT. Past roughly $1M ARR that trade is usually worth making; building genuine in-house tax operations rather than buying tools and an advisor is a later problem, closer to the $10M mark in the framework above.</p>
+
+      <h2>6. It Does Not Have to Be One or the Other</h2>
+
+      <p>The PSP vs. MoR framing assumes you pick one and live with its tradeoffs everywhere. That assumption is starting to break.</p>
+
+      <p>Portable billing layers like Clink, and modern payment routing setups more generally, let a SaaS product run both at once: direct PSP connections for the high-volume home market where you already have the tax registrations and want the margin, with international long-tail sales routed automatically through an MoR that absorbs the compliance work.</p>
+
+      <p>The strongest evidence that this is where things are heading is that Stripe now sells the MoR model itself. Managed Payments is Stripe's merchant-of-record product, and it operates at the transaction level: you can apply it to specific markets or products while the rest of your traffic stays on your normal Stripe setup. The either/or is dissolving from inside the incumbent PSP.</p>
+
+      <p>On price, do not mistake it for an undercut: the Managed Payments fee is 3.5% <em>on top of</em> standard Stripe processing fees, which on an EEA card lands around 5% + €0.25 - roughly Paddle's all-in rate. What Stripe is selling is not a cheaper MoR but a composable one: MoR economics only on the transactions you choose, native to an integration you already run.</p>
+
+      <p>So the useful question is not "which provider is cheapest?" but <strong>"what is my total cost of commerce per segment of revenue?"</strong> For a PSP that means processing fees plus billing infrastructure, tax engine, registrations, filings, fraud tooling, disputes, reconciliation, FX and the engineering time to hold it together. For an MoR it means the headline fee plus whatever accounting and operational overhead remains, plus the strategic cost of the MoR sitting between you and your customer. Those two totals do not resolve the same way for every slice of your revenue, and section 5's card math is a concrete example of why.</p>
+    </article>
+  </main>
+  <footer class="footer">
+    <p>© 2026 IGOR DEMOVIC. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "base",
+      themeVariables: {
+        darkMode: true,
+        background: "#0a0a0a",
+        primaryColor: "#1a1a1a",
+        primaryTextColor: "#ffffff",
+        primaryBorderColor: "#666666",
+        lineColor: "#888888",
+        secondaryColor: "#111111",
+        tertiaryColor: "#111111",
+        fontFamily: "Inter, system-ui, sans-serif",
+        fontSize: "14px"
+      }
+    });
+    // Render one diagram at a time: concurrent renders can bleed nodes
+    // from one flowchart into another and leave the rest empty.
+    (async () => {
+      for (const el of document.querySelectorAll("pre.mermaid")) {
+        await mermaid.run({ nodes: [el] });
+      }
+    })();
+  </script>
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9468364ab2ae4e78b565567f6c488e5a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
