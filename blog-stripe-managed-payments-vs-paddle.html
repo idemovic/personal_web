@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stripe Managed Payments vs. Paddle: Why I'm Choosing the More Expensive One</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta name="description" content="On my card mix, Stripe Managed Payments costs more than Paddle on every transaction type. I am picking it anyway. The full reasoning, the fee stack, and the constraints nobody puts in the comparison posts."/>
+  <meta property="og:title" content="Stripe Managed Payments vs. Paddle: Why I'm Choosing the More Expensive One"/>
+  <meta property="og:description" content="On my card mix, Stripe Managed Payments costs more than Paddle on every transaction type. I am picking it anyway. The full reasoning, the fee stack, and the constraints nobody puts in the comparison posts."/>
+  <meta property="og:type" content="article"/>
+  <style>
+    :root{
+      --bg:#000000;
+      --surface:#111111;
+      --text:#ffffff;
+      --text-secondary:#cccccc;
+      --muted:#888888;
+      --border:#333333;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:#fff;text-decoration:none;border-bottom:1px solid #fff}
+    a:hover{background:#fff;color:#000}
+    .nav{padding:20px;border-bottom:1px solid var(--border);display:flex;gap:20px}
+    .nav a{color:var(--muted);border:none}
+    .nav a:hover{color:#fff;background:none}
+    .container{max-width:800px;margin:0 auto;padding:40px 20px}
+    .blog-post{background:var(--surface);border:1px solid var(--border);padding:30px}
+    h1{font-size:1.8rem;margin:0 0 10px;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+    h2{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:32px 0 10px;color:#fff}
+    h3{font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:24px 0 8px;color:#fff}
+    .post-meta{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
+    p{color:var(--text-secondary);line-height:1.7;margin-bottom:20px}
+    ul,ol{color:var(--text-secondary);line-height:1.8;padding-left:20px;margin-bottom:20px}
+    li{margin-bottom:8px}
+    strong{color:#fff}
+    code{background:#1a1a1a;border:1px solid var(--border);padding:1px 6px;font-family:ui-monospace,Consolas,monospace;font-size:.85em;color:#fff}
+    .callout{border-left:3px solid #fff;padding:14px 18px;margin:24px 0;background:#1a1a1a}
+    .callout p{margin:0;color:#fff;font-weight:500}
+    .table-wrap{overflow-x:auto;margin:20px 0}
+    table{width:100%;border-collapse:collapse;font-size:.85rem;background:#0a0a0a}
+    th,td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;color:var(--text-secondary);line-height:1.5}
+    th{color:#fff;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;background:#1a1a1a}
+    td strong{color:#fff}
+    .diagram-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:20px 0 6px}
+    pre.mermaid{background:#0a0a0a;border:1px solid var(--border);padding:16px;margin:0 0 20px;display:flex;justify-content:center;overflow-x:auto}
+    .footer{text-align:center;padding:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">← BACK TO HOME</a>
+  </nav>
+  <main class="container">
+    <article class="blog-post">
+      <h1>Stripe Managed Payments vs. Paddle: Why I'm Choosing the More Expensive One</h1>
+      <p class="post-meta">Published on 2026-08-17</p>
+
+      <p>I wrote a <a href="blog-psp-vs-mor.html">general guide to PSPs and Merchants of Record</a> some times ago. This is the follow-up where I stop being neutral and actually decide, for my own SaaS, running on an EU entity that bills through Stripe today.</p>
+
+      <p>The short version: on my card mix, Stripe Managed Payments is more expensive than Paddle on every single transaction type. I am going with it anyway, and the reasoning has nothing to do with the take rate.</p>
+
+      <p>The comparison everyone runs is "which MoR has the lower fee." That is the wrong comparison, because the two options are not the same decision. One is a flag on an integration I already run. The other is moving my business onto a reseller.</p>
+
+      <h2>1. What Managed Payments Actually Is</h2>
+
+      <p>Stripe's merchant-of-record product. Stripe becomes the legal seller, handles indirect tax calculation, registration, filing and remittance in 80+ countries, absorbs fraud and dispute management, and provides transaction-level customer support.</p>
+
+      <p>One detail that the comparison posts consistently skip, and that materially changes how you should think about it: <strong>the merchant of record is not "Stripe" as your customer understands the word</strong>. Transactions are acquired by Stripe Payments Company or Stripe Technology Europe Limited, but the customer-facing entity is Link. Your buyer checks out through Link, sees the purchase described as "Sold through Link", gets receipts and invoices from Link, manages the subscription at link.com, and sees this on their card statement:</p>
+
+      <p><code>LINK.COM* YOUR DESCRIPTOR</code></p>
+
+      <p>That is the same brand interposition problem Paddle has. Arguably it is worse, because Paddle is at least a known name in B2B software billing, whereas Link reads to most people as a consumer wallet. If your buyer is a finance person reconciling a statement, <code>LINK.COM*</code> is a support ticket waiting to happen.</p>
+
+      <h2>2. The Fee Stack, Honestly</h2>
+
+      <p>Managed Payments is 3.5% per transaction <em>in addition to</em> standard Stripe processing fees. Not instead of. It stacks on top of everything, including international card fees and currency conversion. Stripe's own documentation confirms the layering with worked examples.</p>
+
+      <p>So from an EU entity, here is what the actual all-in rate looks like against Paddle's flat 5% + 50¢:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Transaction</th><th>Stripe Processing</th><th>+ Managed Payments</th><th>All-In</th><th>Paddle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>EEA card</td><td>1.5% + €0.25</td><td>3.5%</td><td><strong>5% + €0.25</strong></td><td>5% + 50¢</td></tr>
+            <tr><td>UK card</td><td>2.5% + €0.25</td><td>3.5%</td><td><strong>6% + €0.25</strong></td><td>5% + 50¢</td></tr>
+            <tr><td>US card, no conversion</td><td>3.15% + €0.25</td><td>3.5%</td><td><strong>6.65% + €0.25</strong></td><td>5% + 50¢</td></tr>
+            <tr><td>US card, converted to EUR</td><td>3.15% + 2% + €0.25</td><td>3.5%</td><td><strong>8.65% + €0.25</strong></td><td>5% + 50¢</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Read the bottom row again. On a US card that needs currency conversion, Stripe's MoR costs <strong>8.65%</strong> against Paddle's 5%. That is a 3.65 point gap on exactly the revenue an EU seller is most likely to want MoR coverage for. At €500k of US-converted ARR it is roughly €18,000 a year. At €1M it is €36,000.</p>
+
+      <p>Parity only happens on EEA cards, where Stripe's 1.5% base is so cheap that even a 3.5% surcharge lands at Paddle's number. And EEA volume is precisely the revenue where I do not need an MoR at all, because I already hold the registrations and OSS covers it.</p>
+
+      <p>That is the number that nearly changed my mind, and if you take one thing from this post it should be that number rather than my conclusion.</p>
+
+      <h2>3. So Why Am I Still Choosing It</h2>
+
+      <h3>Because it is per-transaction, and Paddle is all-or-nothing</h3>
+
+      <p>This is the argument that carries the decision. Managed Payments is a parameter on a Checkout Session. I can enable it on the transactions where MoR coverage is worth paying for and leave everything else on my direct 1.5% EEA rate.</p>
+
+      <p>Paddle does not work that way. Adopting Paddle means Paddle becomes the seller for your whole book. So the honest comparison is not 8.65% against 5%. It is a blended rate where I route the messy international long tail through an MoR and keep my home-market margin, against a flat 5% applied to everything including the EEA revenue I currently process at 1.5%.</p>
+
+      <p>Run that on a book that is meaningfully EEA-weighted and the flat-5%-on-everything option stops looking cheap very quickly. Run it on a book that is overwhelmingly US-converted and Paddle wins outright. The answer genuinely depends on your mix, which is why "which MoR is cheaper" has no general answer.</p>
+
+      <h3>Because migrating to Paddle costs more than the fee difference</h3>
+
+      <p>Card tokens are not portable between merchants of record. Moving an existing subscriber base to Paddle means pushing every active customer through a re-checkout, and you do not get all of them back. Assume even a modest single-digit churn spike on that migration and it dwarfs the annual fee delta, except it is permanent revenue rather than a recurring cost you can reverse.</p>
+
+      <p>Managed Payments has no migration. My subscriptions, customers, invoices, webhooks and reporting stay as Stripe objects in the account I already run.</p>
+
+      <h3>Because it is reversible</h3>
+
+      <p>Turning Managed Payments off is a code change. Leaving Paddle is a project with customer attrition attached. When I am this uncertain about my own cost model, an option I can back out of is worth paying a premium for. That asymmetry is the actual product here.</p>
+
+      <h3>Because Stripe Tax comes free where the MoR does not cover you</h3>
+
+      <p>Managed Payments does not cover every country. Where it cannot assume tax liability, you remain responsible, but Stripe Tax calculation is included at no additional charge on those transactions. For an EU seller the coverage is good: all 27 member states for cross-border, plus the US, UK, Canada, Australia and most of APAC.</p>
+
+      <h2>4. What I Am Accepting In Exchange</h2>
+
+      <p>These are from Stripe's documentation, not from competitor comparison pages, and several of them would be dealbreakers for a different product.</p>
+
+      <ul>
+        <li><strong>Checkout and Payment Links only.</strong> No Elements, no embeddable web components, no advanced integrations. If you have built a custom checkout, adopting Managed Payments is a rebuild, and that rebuild cost belongs in your comparison.</li>
+        <li><strong>You cannot create a subscription outside of Checkout or Payment Links.</strong> Programmatic subscription creation is out.</li>
+        <li><strong>No invoice items on a Customer, no one-off invoices outside the billing period.</strong> This kills a lot of usage-based and enterprise invoicing patterns outright.</li>
+        <li><strong>No custom domain on the checkout page.</strong></li>
+        <li><strong>Stripe Tax only.</strong> Third-party tax integrations are not supported, so Avalara, Anrok and TaxJar are off the table.</li>
+        <li><strong>The 48-hour rule.</strong> If Stripe escalates a support case to you and you do not respond within 48 hours, Stripe may issue a refund without your approval. That is a real transfer of control over your own revenue.</li>
+        <li><strong>Refunds cost you the tax.</strong> The customer is refunded in full, but in some jurisdictions Stripe must still remit the original tax, and your balance is reduced accordingly.</li>
+        <li><strong>Disputes are handled, not free.</strong> You still pay the dispute received fee and the dispute prevention tooling. Stripe covers the evidence submission fee only when it submits on your behalf.</li>
+        <li><strong>Eligibility is conditional and revocable.</strong> Continued access requires a low dispute rate and clean risk history.</li>
+        <li><strong>Digital products only, with no human in the loop.</strong> Physical goods, professional services such as consulting or development, and live in-person events are excluded. Stripe is explicit that a service involving human intervention, live 1-1 coaching being their example, does not qualify. You also have to assign an eligible product tax code to everything you sell.</li>
+        <li><strong>No Connect.</strong> Platforms, marketplaces, Express accounts and platform-controlled accounts are all ineligible.</li>
+        <li><strong>Data deletion cascades into your account.</strong> If a customer requests deletion, Stripe cancels their Managed Payments subscriptions and deletes the associated Customer, Subscription, Invoice, PaymentIntent and Charge objects from your Stripe account.</li>
+      </ul>
+
+      <h2>5. Where Paddle Is Genuinely The Better Answer</h2>
+
+      <p>I do not think Managed Payments is the better MoR. I think it is the better option for my specific situation. Paddle wins on:</p>
+
+      <ul>
+        <li><strong>Price on non-EEA volume,</strong> and price you can actually predict. One flat number beats a four-layer stack that moves with your customers' card geography.</li>
+        <li><strong>Software-specific billing machinery:</strong> licensing, dunning, failed-payment retry logic, cart abandonment recovery, customer billing portals. Stripe expects you to buy Billing separately and build the rest.</li>
+        <li><strong>Invoicing and B2B flows,</strong> where Managed Payments' restrictions bite hardest.</li>
+        <li><strong>Maturity.</strong> Paddle has run a tax function across this many jurisdictions for years. Managed Payments is new, and "Stripe will figure it out" is a belief, not a track record.</li>
+      </ul>
+
+      <h2>6. The Decision Rule</h2>
+
+      <pre class="mermaid">
+flowchart TD
+    A{"Existing subscriber base<br/>on a PSP?"}
+    A -->|"Yes, meaningful MRR"| B["Managed Payments<br/>(migration cost dominates)"]
+    A -->|"No, greenfield"| C{"Card mix?"}
+    C -->|"EEA-weighted"| D{"Custom checkout<br/>or invoicing needs?"}
+    C -->|"US / non-EEA weighted"| E["Paddle<br/>(3.65pt gap is real money)"]
+    D -->|"Yes"| E
+    D -->|"No"| F["Managed Payments<br/>(composable, reversible)"]
+      </pre>
+
+      <p>Put plainly. If you already have revenue running through Stripe, the migration cost swamps the fee difference and Managed Payments wins almost regardless of the arithmetic. If you are greenfield and US-weighted, Paddle is cheaper and you should take the cheaper option. If you are greenfield and EEA-weighted, it turns on whether Managed Payments' integration constraints are survivable for your product.</p>
+
+      <h2>7. The Question I Have Not Resolved</h2>
+
+      <p>Managed Payments enables Adaptive Pricing by default, which presents prices in the customer's local currency and handles the conversion on your behalf. I have not been able to establish from the public documentation whether that changes how the 2% currency conversion fee applies to a US card on an EU account, or whether it stacks as normal.</p>
+
+      <p>That single question is the difference between 6.65% and 8.65% on my largest revenue segment, so it is worth more than every other item in this post. I am getting it answered by Stripe in writing before I move any volume, and if the answer is the bad one, section 6 says Paddle and I will take my own advice.</p>
+
+      <p>Which is the real lesson, and it is the same one as the last post: do not adopt anyone's conclusion here, including mine. Get your card mix out of your processor, put your own numbers into the table in section 2, and add the migration cost that only applies to you.</p>
+
+      <p class="post-meta">All rates are Stripe's and Paddle's published pricing as of 2026-08-17 and are worth re-checking before you rely on them.</p>
+    </article>
+  </main>
+  <footer class="footer">
+    <p>© 2026 IGOR DEMOVIC. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "base",
+      themeVariables: {
+        darkMode: true,
+        background: "#0a0a0a",
+        primaryColor: "#1a1a1a",
+        primaryTextColor: "#ffffff",
+        primaryBorderColor: "#666666",
+        lineColor: "#888888",
+        secondaryColor: "#111111",
+        tertiaryColor: "#111111",
+        fontFamily: "Inter, system-ui, sans-serif",
+        fontSize: "14px"
+      }
+    });
+    // Render one diagram at a time: concurrent renders can bleed nodes
+    // from one flowchart into another and leave the rest empty.
+    (async () => {
+      for (const el of document.querySelectorAll("pre.mermaid")) {
+        await mermaid.run({ nodes: [el] });
+      }
+    })();
+  </script>
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9468364ab2ae4e78b565567f6c488e5a"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
