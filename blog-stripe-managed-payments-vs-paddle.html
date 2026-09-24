@@ -57,7 +57,7 @@
       <h1>Stripe Managed Payments vs. Paddle: Why I'm Choosing the More Expensive One</h1>
       <p class="post-meta">Published on 2026-08-17</p>
 
-      <p>I wrote a <a href="blog-psp-vs-mor.html">general guide to PSPs and Merchants of Record</a> some time ago. This is the follow-up where I stop being neutral and actually decide, for my own SaaS, running on an EU entity that bills through Stripe today.</p>
+      <p>I wrote a <a href="blog-psp-vs-mor.html">general guide to PSPs and Merchants of Record</a> some time ago. This is the follow-up where I stop being neutral and actually decide, for my own <a href="http://elia-asistent.com/" target="_blank">SaaS</a>, running on an EU entity that bills through Stripe today.</p>
 
       <p>The short version: on my US-weighted card mix, Stripe Managed Payments costs me more than Paddle would. I am going with it anyway, and the reasoning has nothing to do with the take rate.</p>
 
@@ -65,17 +65,17 @@
 
       <h2>1. What Managed Payments Actually Is</h2>
 
-      <p>Stripe's merchant-of-record product. Stripe becomes the legal seller, handles indirect tax calculation, registration, filing and remittance in 80+ countries, absorbs fraud and dispute management, and provides transaction-level customer support.</p>
+      <p>Stripe becomes the legal seller, handles indirect tax calculation, registration, filing and remittance in 80+ countries, absorbs fraud and dispute management, and provides transaction-level customer support.</p>
 
       <p>One detail that the comparison posts consistently skip, and that materially changes how you should think about it: <strong>the merchant of record is not "Stripe" as your customer understands the word</strong>. Transactions are acquired by Stripe Payments Company or Stripe Technology Europe Limited, but the customer-facing entity is Link. Your buyer checks out through Link, sees the purchase described as "Sold through Link", gets receipts and invoices from Link, manages the subscription at link.com, and sees this on their card statement:</p>
 
       <p><code>LINK.COM* YOUR DESCRIPTOR</code></p>
 
-      <p>That is the same brand interposition problem Paddle has. Arguably it is worse, because Paddle is at least a known name in B2B software billing, whereas Link reads to most people as a consumer wallet. If your buyer is a finance person reconciling a statement, <code>LINK.COM*</code> is a support ticket waiting to happen.</p>
+      <p>That is the same brand problem Paddle has. Arguably it is worse, because Paddle is at least a known name in B2B software billing, whereas Link reads to most people as a consumer wallet. If your buyer is a finance person reconciling a statement, <code>LINK.COM*</code> is a support ticket waiting to happen.</p>
 
       <h2>2. The Fee Stack, Honestly</h2>
 
-      <p>Managed Payments is 3.5% per transaction <em>in addition to</em> standard Stripe processing fees. Not instead of. It stacks on top of everything, including international card fees and currency conversion. Stripe's own documentation confirms the layering with worked examples.</p>
+      <p>Managed Payments is 3.5% per transaction <em>in addition to</em> standard Stripe processing fees. It stacks on top of everything, including international card fees and currency conversion. Stripe's own documentation confirms the layering with worked examples.</p>
 
       <p>So from an EU entity, here is what the actual all-in rate looks like against Paddle's flat 5% + 50¢:</p>
 
@@ -92,13 +92,13 @@
         </table>
       </div>
 
-      <p>Note what is <em>not</em> in that table: the 2% currency conversion fee. On ordinary Stripe Payments, charging a US customer in dollars and settling in euros costs you that 2% on top, which would put a US card at 8.65%. Managed Payments enables Adaptive Pricing by default, and under Adaptive Pricing Stripe's position is explicit: <strong>"You pay 0%"</strong>. The merchant receives settlement in their integration currency and the conversion fee is not charged to them.</p>
+      <p>The 2% currency conversion fee is not in that table. On ordinary Stripe Payments, charging a US customer in dollars and settling in euros costs you that 2% on top, which would put a US card at 8.65%. Managed Payments enables Adaptive Pricing by default, and under Adaptive Pricing Stripe's position is explicit: <strong>"You pay 0%"</strong>. The merchant receives settlement in their integration currency and the conversion fee is not charged to them.</p>
 
       <p>That distinction is worth getting right, because it is the single largest number in this decision and the naive stack is an easy mistake to make. If you see a comparison quoting Stripe's MoR at over 8% for an EU seller, this is what it missed.</p>
 
       <p>It does not mean conversion is free, though. It means it moved. Stripe embeds a 2-4% conversion fee in the exchange rate shown to the customer, so your US buyer pays 2-4% above your EUR-equivalent list price. That is invisible on your Stripe statement and very visible on your price page. A customer who prefers can elect to pay in your original currency and absorb their own bank's spread instead. Paddle localises prices too, so this is a wash between the two rather than a point against either.</p>
 
-      <p>So the real gap on US cards is <strong>6.65% against 5%</strong>. That is 1.65 points, worth roughly €8,250 a year at €500k of US ARR and €16,500 at €1M. Real money, but a fraction of what the naive arithmetic suggests.</p>
+      <p>So the real gap on US cards is <strong>6.65% against 5%</strong>. That is 1.65 points, worth roughly €8,250 a year at €500k of US ARR and €16,500 at €1M. Real money, but a fraction of what the arithmetic suggests.</p>
 
       <p>Parity happens on EEA cards, where Stripe's 1.5% base is so cheap that even a 3.5% surcharge lands at Paddle's number. And EEA volume is precisely the revenue where I do not need an MoR at all, because I already hold the registrations and OSS covers it.</p>
 
@@ -120,7 +120,7 @@
 
       <h3>Because it is reversible</h3>
 
-      <p>Turning Managed Payments off is a code change. Leaving Paddle is a project with customer attrition attached. When I am this uncertain about my own cost model, an option I can back out of is worth paying a premium for. That asymmetry is the actual product here.</p>
+      <p>Turning Managed Payments off is a code change. Leaving Paddle is a project with customer attrition attached. When I am this uncertain about my own cost model, an option I can back out of is worth paying a premium for.</p>
 
       <h3>Because Stripe Tax comes free where the MoR does not cover you</h3>
 
@@ -170,12 +170,6 @@ flowchart TD
       </pre>
 
       <p>Put plainly. If you already have revenue running through Stripe, the migration cost swamps the fee difference and Managed Payments wins almost regardless of the arithmetic. If you are greenfield and US-weighted, Paddle is cheaper and you should take the cheaper option. If you are greenfield and EEA-weighted, it turns on whether Managed Payments' integration constraints are survivable for your product.</p>
-
-      <h2>7. What I Would Still Confirm</h2>
-
-      <p>One piece of the fee stack is not spelled out anywhere public: whether the full 3.15% international card rate applies unchanged under Managed Payments. Adaptive Pricing does not alter where a card was issued, so it should, but the interaction between the two is not documented and it is worth two points on my largest revenue segment. I am getting that in writing from Stripe before I move volume.</p>
-
-      <p>Which is the real lesson, and it is the same one as the last post: do not adopt anyone's conclusion here, including mine. Get your card mix out of your processor, put your own numbers into the table in section 2, and add the migration cost that only applies to you.</p>
 
       <p class="post-meta">All rates are Stripe's and Paddle's published pricing as of 2026-08-17 and are worth re-checking before you rely on them.</p>
     </article>
